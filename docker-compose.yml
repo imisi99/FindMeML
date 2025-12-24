@@ -1,0 +1,28 @@
+services:
+  db:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    container_name: findme_qdrant
+    ports:
+      - "6334:6344"
+    volumes:
+      - qdrant:/qdrant/storage
+    network:
+      - findme_emb_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: findme_emb
+    depends_on:
+      - db
+    network:
+      - findme_emb_network
+
+network:
+  findme_emb_network:
+    driver: bridge
+
+volumes:
+  qdrant:
