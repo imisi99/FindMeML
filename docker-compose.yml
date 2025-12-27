@@ -1,13 +1,24 @@
 services:
   db:
-    image: qdrant/qdrant:latest
+    image: qdrant/qdrant:1.16.3
     restart: unless-stopped
     container_name: findme_qdrant
     ports:
-      - "6334:6344"
+      - "6334:6334"
     volumes:
       - qdrant:/qdrant/storage
     network:
+      - findme_emb_network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: findme_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    networks:
       - findme_emb_network
 
   app:
@@ -17,6 +28,7 @@ services:
     container_name: findme_emb
     depends_on:
       - db
+      - ollama
     network:
       - findme_emb_network
 
@@ -26,3 +38,4 @@ network:
 
 volumes:
   qdrant:
+  ollama:
