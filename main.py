@@ -4,6 +4,13 @@ from fastapi import FastAPI
 from db import db
 
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="{asctime} [{levelname}] {message}",
+    style="{",
+)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
