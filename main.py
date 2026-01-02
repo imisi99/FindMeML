@@ -1,7 +1,9 @@
-from contextlib import asynccontextmanager
+from concurrent import futures
 import logging
-from fastapi import FastAPI
-from db import db
+import grpc
+from services.project import ProjectEmbeddingService
+from services.user import UserEmbeddingService
+from generated import findme_pb2_grpc
 
 
 logging.basicConfig(
@@ -11,20 +13,21 @@ logging.basicConfig(
 )
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    try:
-        db.QDRANT_CLIENT = db.qdrant_client_connect()
-        db.ensure_collections(db.QDRANT_CLIENT)
-    except Exception as e:
-        logging.error(f"Startup failed: {e}")
-        raise
-    yield
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+
+    findme_pb2_grpc.add_UserEmbeddingServiceServicer_to_server(
+        UserEmbeddingService, server
+    )
+
+    findme_pb2_grpc.add_ProjectEmbeddingServiceServicer_to_server(
+        ProjectEmbeddingService, server
+    )
+
+    server.add_insecure_port("[::]:8000")
+    server.start()
+    logging.info("[gRPC] Server started on port 8000")
+    server.wait_for_termination()
 
 
-app = FastAPI(lifespan=lifespan)
-
-
-@app.get("/")
-async def home():
-    return {"status": "ok"}
+serve()

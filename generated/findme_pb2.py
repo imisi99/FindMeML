@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x66indme.proto\x12\x06\x66indme\"W\n\x14UserEmbeddingRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0b\n\x03\x62io\x18\x02 \x01(\t\x12\x0e\n\x06skills\x18\x03 \x03(\t\x12\x11\n\tinterests\x18\x04 \x03(\t\"a\n\x17ProjectEmbeddingRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0e\n\x06skills\x18\x04 \x03(\t\"2\n\x11\x45mbeddingResponse\x12\x10\n\x08successs\x18\x01 \x01(\x08\x12\x0b\n\x03msg\x18\x02 \x01(\t2\xde\x02\n\x10\x45mbeddingService\x12N\n\x13\x43reateUserEmbedding\x12\x1c.findme.UserEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12N\n\x13UpdateUserEmbedding\x12\x1c.findme.UserEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12T\n\x16\x43reateProjectEmbedding\x12\x1f.findme.ProjectEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12T\n\x16UpdateProjectEmbedding\x12\x1f.findme.ProjectEmbeddingRequest\x1a\x19.findme.EmbeddingResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x66indme.proto\x12\x06\x66indme\"W\n\x14UserEmbeddingRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0b\n\x03\x62io\x18\x02 \x01(\t\x12\x0e\n\x06skills\x18\x03 \x03(\t\x12\x11\n\tinterests\x18\x04 \x03(\t\"a\n\x17ProjectEmbeddingRequest\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0e\n\x06skills\x18\x04 \x03(\t\"$\n\x16\x44\x65leteEmbeddingRequest\x12\n\n\x02id\x18\x01 \x01(\t\"1\n\x11\x45mbeddingResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0b\n\x03msg\x18\x02 \x01(\t2\x88\x02\n\x14UserEmbeddingService\x12N\n\x13\x43reateUserEmbedding\x12\x1c.findme.UserEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12N\n\x13UpdateUserEmbedding\x12\x1c.findme.UserEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12P\n\x13\x44\x65leteUserEmbedding\x12\x1e.findme.DeleteEmbeddingRequest\x1a\x19.findme.EmbeddingResponse2\x9a\x02\n\x17ProjectEmbeddingService\x12S\n\x16\x44\x65leteProjectEmbedding\x12\x1e.findme.DeleteEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12T\n\x16\x43reateProjectEmbedding\x12\x1f.findme.ProjectEmbeddingRequest\x1a\x19.findme.EmbeddingResponse\x12T\n\x16UpdateProjectEmbedding\x12\x1f.findme.ProjectEmbeddingRequest\x1a\x19.findme.EmbeddingResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,8 +35,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_USEREMBEDDINGREQUEST']._serialized_end=111
   _globals['_PROJECTEMBEDDINGREQUEST']._serialized_start=113
   _globals['_PROJECTEMBEDDINGREQUEST']._serialized_end=210
-  _globals['_EMBEDDINGRESPONSE']._serialized_start=212
-  _globals['_EMBEDDINGRESPONSE']._serialized_end=262
-  _globals['_EMBEDDINGSERVICE']._serialized_start=265
-  _globals['_EMBEDDINGSERVICE']._serialized_end=615
+  _globals['_DELETEEMBEDDINGREQUEST']._serialized_start=212
+  _globals['_DELETEEMBEDDINGREQUEST']._serialized_end=248
+  _globals['_EMBEDDINGRESPONSE']._serialized_start=250
+  _globals['_EMBEDDINGRESPONSE']._serialized_end=299
+  _globals['_USEREMBEDDINGSERVICE']._serialized_start=302
+  _globals['_USEREMBEDDINGSERVICE']._serialized_end=566
+  _globals['_PROJECTEMBEDDINGSERVICE']._serialized_start=569
+  _globals['_PROJECTEMBEDDINGSERVICE']._serialized_end=851
 # @@protoc_insertion_point(module_scope)

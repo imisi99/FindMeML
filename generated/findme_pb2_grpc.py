@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import findme_pb2 as findme__pb2
+from . import findme_pb2 as findme__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class EmbeddingServiceStub(object):
+class UserEmbeddingServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -35,28 +35,23 @@ class EmbeddingServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CreateUserEmbedding = channel.unary_unary(
-                '/findme.EmbeddingService/CreateUserEmbedding',
+                '/findme.UserEmbeddingService/CreateUserEmbedding',
                 request_serializer=findme__pb2.UserEmbeddingRequest.SerializeToString,
                 response_deserializer=findme__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.UpdateUserEmbedding = channel.unary_unary(
-                '/findme.EmbeddingService/UpdateUserEmbedding',
+                '/findme.UserEmbeddingService/UpdateUserEmbedding',
                 request_serializer=findme__pb2.UserEmbeddingRequest.SerializeToString,
                 response_deserializer=findme__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
-        self.CreateProjectEmbedding = channel.unary_unary(
-                '/findme.EmbeddingService/CreateProjectEmbedding',
-                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
-                _registered_method=True)
-        self.UpdateProjectEmbedding = channel.unary_unary(
-                '/findme.EmbeddingService/UpdateProjectEmbedding',
-                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
+        self.DeleteUserEmbedding = channel.unary_unary(
+                '/findme.UserEmbeddingService/DeleteUserEmbedding',
+                request_serializer=findme__pb2.DeleteEmbeddingRequest.SerializeToString,
                 response_deserializer=findme__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
 
 
-class EmbeddingServiceServicer(object):
+class UserEmbeddingServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CreateUserEmbedding(self, request, context):
@@ -71,20 +66,14 @@ class EmbeddingServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CreateProjectEmbedding(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateProjectEmbedding(self, request, context):
+    def DeleteUserEmbedding(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_EmbeddingServiceServicer_to_server(servicer, server):
+def add_UserEmbeddingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateUserEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateUserEmbedding,
@@ -96,25 +85,20 @@ def add_EmbeddingServiceServicer_to_server(servicer, server):
                     request_deserializer=findme__pb2.UserEmbeddingRequest.FromString,
                     response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
             ),
-            'CreateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateProjectEmbedding,
-                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
-            ),
-            'UpdateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateProjectEmbedding,
-                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
+            'DeleteUserEmbedding': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteUserEmbedding,
+                    request_deserializer=findme__pb2.DeleteEmbeddingRequest.FromString,
                     response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'findme.EmbeddingService', rpc_method_handlers)
+            'findme.UserEmbeddingService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('findme.EmbeddingService', rpc_method_handlers)
+    server.add_registered_method_handlers('findme.UserEmbeddingService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class EmbeddingService(object):
+class UserEmbeddingService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -131,7 +115,7 @@ class EmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.EmbeddingService/CreateUserEmbedding',
+            '/findme.UserEmbeddingService/CreateUserEmbedding',
             findme__pb2.UserEmbeddingRequest.SerializeToString,
             findme__pb2.EmbeddingResponse.FromString,
             options,
@@ -158,8 +142,139 @@ class EmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.EmbeddingService/UpdateUserEmbedding',
+            '/findme.UserEmbeddingService/UpdateUserEmbedding',
             findme__pb2.UserEmbeddingRequest.SerializeToString,
+            findme__pb2.EmbeddingResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteUserEmbedding(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/findme.UserEmbeddingService/DeleteUserEmbedding',
+            findme__pb2.DeleteEmbeddingRequest.SerializeToString,
+            findme__pb2.EmbeddingResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class ProjectEmbeddingServiceStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.DeleteProjectEmbedding = channel.unary_unary(
+                '/findme.ProjectEmbeddingService/DeleteProjectEmbedding',
+                request_serializer=findme__pb2.DeleteEmbeddingRequest.SerializeToString,
+                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                _registered_method=True)
+        self.CreateProjectEmbedding = channel.unary_unary(
+                '/findme.ProjectEmbeddingService/CreateProjectEmbedding',
+                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
+                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                _registered_method=True)
+        self.UpdateProjectEmbedding = channel.unary_unary(
+                '/findme.ProjectEmbeddingService/UpdateProjectEmbedding',
+                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
+                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                _registered_method=True)
+
+
+class ProjectEmbeddingServiceServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def DeleteProjectEmbedding(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateProjectEmbedding(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateProjectEmbedding(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_ProjectEmbeddingServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'DeleteProjectEmbedding': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteProjectEmbedding,
+                    request_deserializer=findme__pb2.DeleteEmbeddingRequest.FromString,
+                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+            ),
+            'CreateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateProjectEmbedding,
+                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
+                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+            ),
+            'UpdateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateProjectEmbedding,
+                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
+                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'findme.ProjectEmbeddingService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('findme.ProjectEmbeddingService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class ProjectEmbeddingService(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def DeleteProjectEmbedding(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/findme.ProjectEmbeddingService/DeleteProjectEmbedding',
+            findme__pb2.DeleteEmbeddingRequest.SerializeToString,
             findme__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
@@ -185,7 +300,7 @@ class EmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.EmbeddingService/CreateProjectEmbedding',
+            '/findme.ProjectEmbeddingService/CreateProjectEmbedding',
             findme__pb2.ProjectEmbeddingRequest.SerializeToString,
             findme__pb2.EmbeddingResponse.FromString,
             options,
@@ -212,7 +327,7 @@ class EmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.EmbeddingService/UpdateProjectEmbedding',
+            '/findme.ProjectEmbeddingService/UpdateProjectEmbedding',
             findme__pb2.ProjectEmbeddingRequest.SerializeToString,
             findme__pb2.EmbeddingResponse.FromString,
             options,

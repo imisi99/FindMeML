@@ -2,9 +2,14 @@ syntax = "proto3";
 
 package findme;
 
-service EmbeddingService {
+service UserEmbeddingService {
   rpc CreateUserEmbedding(UserEmbeddingRequest) returns (EmbeddingResponse);
   rpc UpdateUserEmbedding(UserEmbeddingRequest) returns (EmbeddingResponse);
+  rpc DeleteUserEmbedding(DeleteEmbeddingRequest) returns (EmbeddingResponse);
+}
+
+service ProjectEmbeddingService {
+  rpc DeleteProjectEmbedding(DeleteEmbeddingRequest) returns (EmbeddingResponse);
   rpc CreateProjectEmbedding(ProjectEmbeddingRequest) returns (EmbeddingResponse);
   rpc UpdateProjectEmbedding(ProjectEmbeddingRequest) returns (EmbeddingResponse);
 }
@@ -23,7 +28,11 @@ message ProjectEmbeddingRequest {
   repeated string skills = 4;
 }
 
+message DeleteEmbeddingRequest {
+  string id = 1;
+}
+
 message EmbeddingResponse {
-  bool successs = 1;
+  bool success = 1;
   string msg = 2;
 }
