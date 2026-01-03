@@ -2,6 +2,7 @@ import grpc
 from qdrant_client.models import PointStruct
 from db.db import get_qdrant_client
 from generated import findme_pb2_grpc, findme_pb2
+from model.embedding import generate_user_embedding
 
 
 class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
@@ -13,13 +14,14 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             interests = list(request.interests)
 
             client = get_qdrant_client()
+            vector = generate_user_embedding(bio, skills, interests)
 
             client.upsert(
                 collection_name="users",
                 points=[
                     PointStruct(
                         id=user_id,
-                        vector=[],
+                        vector=vector,
                         payload={"bio": bio, "skills": skills, "interests": interests},
                     )
                 ],
@@ -52,12 +54,14 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             skills = list(request.skills)
             interests = list(request.interests)
 
+            vector = generate_user_embedding(bio, skills, interests)
+
             client.upsert(
                 collection_name="users",
                 points=[
                     PointStruct(
                         id=user_id,
-                        vector=[],
+                        vector=vector,
                         payload={"bio": bio, "skills": skills, "interests": interests},
                     )
                 ],

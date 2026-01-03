@@ -22,7 +22,11 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: findme_emb
-    restart: unless-stopped
+    restart: always
+    environment:
+      - OLLAMA_EMBEDDING_HOST=${OLLAMA_EMBEDDING_HOST}
+      - QDRANT_HOST=${QDRANT_HOST}
+      - QDRANT_PORT=${QDRANT_PORT}
     ports:
       - "8000:8000"
     depends_on:
