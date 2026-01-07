@@ -30,6 +30,14 @@ class ProjectEmbeddingRequest(_message.Message):
     skills: _containers.RepeatedScalarFieldContainer[str]
     def __init__(self, project_id: _Optional[str] = ..., title: _Optional[str] = ..., description: _Optional[str] = ..., skills: _Optional[_Iterable[str]] = ...) -> None: ...
 
+class UpdateStatusRequest(_message.Message):
+    __slots__ = ("id", "status")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    status: bool
+    def __init__(self, id: _Optional[str] = ..., status: bool = ...) -> None: ...
+
 class DeleteEmbeddingRequest(_message.Message):
     __slots__ = ("id",)
     ID_FIELD_NUMBER: _ClassVar[int]

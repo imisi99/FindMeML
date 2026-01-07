@@ -12,6 +12,7 @@ class ProjectEmbeddingService(findme_pb2_grpc.ProjectEmbeddingServiceServicer):
             title = request.title
             description = request.description
             skills = list(request.skills)
+            status = True
 
             client = get_qdrant_client()
             vector = generate_project_embedding(title, description, skills)
@@ -26,6 +27,7 @@ class ProjectEmbeddingService(findme_pb2_grpc.ProjectEmbeddingServiceServicer):
                             "title": title,
                             "description": description,
                             "skills": skills,
+                            "status": status,
                         },
                     )
                 ],
@@ -72,6 +74,36 @@ class ProjectEmbeddingService(findme_pb2_grpc.ProjectEmbeddingServiceServicer):
                         },
                     )
                 ],
+            )
+
+            return findme_pb2.EmbeddingResponse(
+                success=True, msg="Updated successfully"
+            )
+
+        except Exception as e:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details(f"An error occured -> {str(e)}")
+            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+
+    def UpdateProjectStatus(self, request, context):
+        project_id = request.id
+        client = get_qdrant_client()
+
+        try:
+            existing = client.retrieve("projects", ids=[project_id])
+            if not existing:
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                context.set_details(f"Project {project_id} not found")
+                return findme_pb2.EmbeddingResponse(
+                    success=False, msg=f"Project {project_id} not found"
+                )
+
+            status = request.status
+
+            client.set_payload(
+                collection_name="projects",
+                payload={"status": status},
+                points=[project_id],
             )
 
             return findme_pb2.EmbeddingResponse(

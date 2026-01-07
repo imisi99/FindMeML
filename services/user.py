@@ -12,6 +12,7 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             bio = request.bio
             skills = list(request.skills)
             interests = list(request.interests)
+            status = True
 
             client = get_qdrant_client()
             vector = generate_user_embedding(bio, skills, interests)
@@ -22,7 +23,12 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
                     PointStruct(
                         id=user_id,
                         vector=vector,
-                        payload={"bio": bio, "skills": skills, "interests": interests},
+                        payload={
+                            "bio": bio,
+                            "skills": skills,
+                            "status": status,
+                            "interests": interests,
+                        },
                     )
                 ],
             )
@@ -62,11 +68,42 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
                     PointStruct(
                         id=user_id,
                         vector=vector,
-                        payload={"bio": bio, "skills": skills, "interests": interests},
+                        payload={
+                            "bio": bio,
+                            "skills": skills,
+                            "interests": interests,
+                        },
                     )
                 ],
             )
 
+            return findme_pb2.EmbeddingResponse(
+                success=True, msg="Updated successfully"
+            )
+
+        except Exception as e:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details(f"An error occured -> {str(e)}")
+            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+
+    def UpdateUserStatus(self, request, context):
+        user_id = request.id
+        client = get_qdrant_client()
+
+        try:
+            existing = client.retrieve(collection_name="users", ids=[user_id])
+            if not existing:
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                context.set_details(f"User {user_id} not found")
+                return findme_pb2.EmbeddingResponse(
+                    success=False, msg=f"User {user_id} not found"
+                )
+
+            status = request.status
+
+            client.set_payload(
+                collection_name="users", payload={"status": status}, points=[user_id]
+            )
             return findme_pb2.EmbeddingResponse(
                 success=True, msg="Updated successfully"
             )
