@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from . import findme_pb2 as findme__pb2
+from . import emb_pb2 as emb__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in findme_pb2_grpc.py depends on'
+        + ' but the generated code in emb_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -35,24 +35,24 @@ class UserEmbeddingServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CreateUserEmbedding = channel.unary_unary(
-                '/findme.UserEmbeddingService/CreateUserEmbedding',
-                request_serializer=findme__pb2.UserEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.UserEmbeddingService/CreateUserEmbedding',
+                request_serializer=emb__pb2.UserEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.UpdateUserEmbedding = channel.unary_unary(
-                '/findme.UserEmbeddingService/UpdateUserEmbedding',
-                request_serializer=findme__pb2.UserEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.UserEmbeddingService/UpdateUserEmbedding',
+                request_serializer=emb__pb2.UserEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.UpdateUserStatus = channel.unary_unary(
-                '/findme.UserEmbeddingService/UpdateUserStatus',
-                request_serializer=findme__pb2.UpdateStatusRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.UserEmbeddingService/UpdateUserStatus',
+                request_serializer=emb__pb2.UpdateStatusRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.DeleteUserEmbedding = channel.unary_unary(
-                '/findme.UserEmbeddingService/DeleteUserEmbedding',
-                request_serializer=findme__pb2.DeleteEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.UserEmbeddingService/DeleteUserEmbedding',
+                request_serializer=emb__pb2.DeleteEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
 
 
@@ -88,29 +88,29 @@ def add_UserEmbeddingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateUserEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateUserEmbedding,
-                    request_deserializer=findme__pb2.UserEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.UserEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'UpdateUserEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateUserEmbedding,
-                    request_deserializer=findme__pb2.UserEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.UserEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'UpdateUserStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateUserStatus,
-                    request_deserializer=findme__pb2.UpdateStatusRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.UpdateStatusRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'DeleteUserEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteUserEmbedding,
-                    request_deserializer=findme__pb2.DeleteEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.DeleteEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'findme.UserEmbeddingService', rpc_method_handlers)
+            'emb.UserEmbeddingService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('findme.UserEmbeddingService', rpc_method_handlers)
+    server.add_registered_method_handlers('emb.UserEmbeddingService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -131,9 +131,9 @@ class UserEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.UserEmbeddingService/CreateUserEmbedding',
-            findme__pb2.UserEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.UserEmbeddingService/CreateUserEmbedding',
+            emb__pb2.UserEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -158,9 +158,9 @@ class UserEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.UserEmbeddingService/UpdateUserEmbedding',
-            findme__pb2.UserEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.UserEmbeddingService/UpdateUserEmbedding',
+            emb__pb2.UserEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -185,9 +185,9 @@ class UserEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.UserEmbeddingService/UpdateUserStatus',
-            findme__pb2.UpdateStatusRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.UserEmbeddingService/UpdateUserStatus',
+            emb__pb2.UpdateStatusRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -212,9 +212,9 @@ class UserEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.UserEmbeddingService/DeleteUserEmbedding',
-            findme__pb2.DeleteEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.UserEmbeddingService/DeleteUserEmbedding',
+            emb__pb2.DeleteEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -236,24 +236,24 @@ class ProjectEmbeddingServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CreateProjectEmbedding = channel.unary_unary(
-                '/findme.ProjectEmbeddingService/CreateProjectEmbedding',
-                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.ProjectEmbeddingService/CreateProjectEmbedding',
+                request_serializer=emb__pb2.ProjectEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.UpdateProjectEmbedding = channel.unary_unary(
-                '/findme.ProjectEmbeddingService/UpdateProjectEmbedding',
-                request_serializer=findme__pb2.ProjectEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.ProjectEmbeddingService/UpdateProjectEmbedding',
+                request_serializer=emb__pb2.ProjectEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.UpdateProjectStatus = channel.unary_unary(
-                '/findme.ProjectEmbeddingService/UpdateProjectStatus',
-                request_serializer=findme__pb2.UpdateStatusRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.ProjectEmbeddingService/UpdateProjectStatus',
+                request_serializer=emb__pb2.UpdateStatusRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
         self.DeleteProjectEmbedding = channel.unary_unary(
-                '/findme.ProjectEmbeddingService/DeleteProjectEmbedding',
-                request_serializer=findme__pb2.DeleteEmbeddingRequest.SerializeToString,
-                response_deserializer=findme__pb2.EmbeddingResponse.FromString,
+                '/emb.ProjectEmbeddingService/DeleteProjectEmbedding',
+                request_serializer=emb__pb2.DeleteEmbeddingRequest.SerializeToString,
+                response_deserializer=emb__pb2.EmbeddingResponse.FromString,
                 _registered_method=True)
 
 
@@ -289,29 +289,29 @@ def add_ProjectEmbeddingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateProjectEmbedding,
-                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.ProjectEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'UpdateProjectEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateProjectEmbedding,
-                    request_deserializer=findme__pb2.ProjectEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.ProjectEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'UpdateProjectStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateProjectStatus,
-                    request_deserializer=findme__pb2.UpdateStatusRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.UpdateStatusRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
             'DeleteProjectEmbedding': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteProjectEmbedding,
-                    request_deserializer=findme__pb2.DeleteEmbeddingRequest.FromString,
-                    response_serializer=findme__pb2.EmbeddingResponse.SerializeToString,
+                    request_deserializer=emb__pb2.DeleteEmbeddingRequest.FromString,
+                    response_serializer=emb__pb2.EmbeddingResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'findme.ProjectEmbeddingService', rpc_method_handlers)
+            'emb.ProjectEmbeddingService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('findme.ProjectEmbeddingService', rpc_method_handlers)
+    server.add_registered_method_handlers('emb.ProjectEmbeddingService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -332,9 +332,9 @@ class ProjectEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.ProjectEmbeddingService/CreateProjectEmbedding',
-            findme__pb2.ProjectEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.ProjectEmbeddingService/CreateProjectEmbedding',
+            emb__pb2.ProjectEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -359,9 +359,9 @@ class ProjectEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.ProjectEmbeddingService/UpdateProjectEmbedding',
-            findme__pb2.ProjectEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.ProjectEmbeddingService/UpdateProjectEmbedding',
+            emb__pb2.ProjectEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -386,9 +386,9 @@ class ProjectEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.ProjectEmbeddingService/UpdateProjectStatus',
-            findme__pb2.UpdateStatusRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.ProjectEmbeddingService/UpdateProjectStatus',
+            emb__pb2.UpdateStatusRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -413,9 +413,9 @@ class ProjectEmbeddingService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/findme.ProjectEmbeddingService/DeleteProjectEmbedding',
-            findme__pb2.DeleteEmbeddingRequest.SerializeToString,
-            findme__pb2.EmbeddingResponse.FromString,
+            '/emb.ProjectEmbeddingService/DeleteProjectEmbedding',
+            emb__pb2.DeleteEmbeddingRequest.SerializeToString,
+            emb__pb2.EmbeddingResponse.FromString,
             options,
             channel_credentials,
             insecure,

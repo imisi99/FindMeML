@@ -1,11 +1,11 @@
 import grpc
 from qdrant_client.models import PointStruct
 from db.db import get_qdrant_client
-from generated import findme_pb2_grpc, findme_pb2
+from generated import emb_pb2_grpc, emb_pb2
 from model.embedding import generate_user_embedding
 
 
-class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
+class UserEmbeddingService(emb_pb2_grpc.UserEmbeddingServiceServicer):
     def CreateUserEmbedding(self, request, context):
         try:
             user_id = request.user_id
@@ -33,14 +33,12 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
                 ],
             )
 
-            return findme_pb2.EmbeddingResponse(
-                success=True, msg="Created successfully"
-            )
+            return emb_pb2.EmbeddingResponse(success=True, msg="Created successfully")
 
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"An error occured -> {str(e)}")
-            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+            return emb_pb2.EmbeddingResponse(success=False, msg=str(e))
 
     def UpdateUserEmbedding(self, request, context):
         user_id = request.user_id
@@ -52,7 +50,7 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             if not existing:
                 context.set_code(grpc.StatusCode.NOT_FOUND)
                 context.set_details(f"User {user_id} not found")
-                return findme_pb2.EmbeddingResponse(
+                return emb_pb2.EmbeddingResponse(
                     success=False, msg=f"User {user_id} not found"
                 )
 
@@ -77,14 +75,12 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
                 ],
             )
 
-            return findme_pb2.EmbeddingResponse(
-                success=True, msg="Updated successfully"
-            )
+            return emb_pb2.EmbeddingResponse(success=True, msg="Updated successfully")
 
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"An error occured -> {str(e)}")
-            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+            return emb_pb2.EmbeddingResponse(success=False, msg=str(e))
 
     def UpdateUserStatus(self, request, context):
         user_id = request.id
@@ -95,7 +91,7 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             if not existing:
                 context.set_code(grpc.StatusCode.NOT_FOUND)
                 context.set_details(f"User {user_id} not found")
-                return findme_pb2.EmbeddingResponse(
+                return emb_pb2.EmbeddingResponse(
                     success=False, msg=f"User {user_id} not found"
                 )
 
@@ -104,14 +100,12 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             client.set_payload(
                 collection_name="users", payload={"status": status}, points=[user_id]
             )
-            return findme_pb2.EmbeddingResponse(
-                success=True, msg="Updated successfully"
-            )
+            return emb_pb2.EmbeddingResponse(success=True, msg="Updated successfully")
 
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"An error occured -> {str(e)}")
-            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+            return emb_pb2.EmbeddingResponse(success=False, msg=str(e))
 
     def DeleteUserEmbedding(self, request, context):
         user_id = request.id
@@ -123,17 +117,15 @@ class UserEmbeddingService(findme_pb2_grpc.UserEmbeddingServiceServicer):
             if not existing:
                 context.set_code(grpc.StatusCode.NOT_FOUND)
                 context.set_details(f"User {user_id} not found")
-                return findme_pb2.EmbeddingResponse(
+                return emb_pb2.EmbeddingResponse(
                     success=False, msg=f"User {user_id} not found"
                 )
 
             client.delete(collection_name="users", points_selector=[user_id])
 
-            return findme_pb2.EmbeddingResponse(
-                success=True, msg="Deleted successfully"
-            )
+            return emb_pb2.EmbeddingResponse(success=True, msg="Deleted successfully")
 
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"An error occured -> {str(e)}")
-            return findme_pb2.EmbeddingResponse(success=False, msg=str(e))
+            return emb_pb2.EmbeddingResponse(success=False, msg=str(e))

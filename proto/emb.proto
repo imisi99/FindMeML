@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package findme;
+package emb;
 
 option go_package = "./emb";
 

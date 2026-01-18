@@ -4,7 +4,7 @@ import grpc
 from db import db
 from services.project import ProjectEmbeddingService
 from services.user import UserEmbeddingService
-from generated import findme_pb2_grpc, findme_pb2
+from generated import emb_pb2_grpc, emb_pb2
 from grpc_reflection.v1alpha import reflection
 
 
@@ -14,6 +14,10 @@ logging.basicConfig(
     style="{",
 )
 
+# TODO:
+# Add a vector name for the user and project vector
+# Add logs to provide info on what's happening
+
 
 def serve():
     db.QDRANT_CLIENT = db.qdrant_client_connect()
@@ -21,17 +25,17 @@ def serve():
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 
-    findme_pb2_grpc.add_UserEmbeddingServiceServicer_to_server(
+    emb_pb2_grpc.add_UserEmbeddingServiceServicer_to_server(
         UserEmbeddingService(), server
     )
 
-    findme_pb2_grpc.add_ProjectEmbeddingServiceServicer_to_server(
+    emb_pb2_grpc.add_ProjectEmbeddingServiceServicer_to_server(
         ProjectEmbeddingService(), server
     )
 
     SERVICE_NAMES = (
-        findme_pb2.DESCRIPTOR.services_by_name["UserEmbeddingService"].full_name,
-        findme_pb2.DESCRIPTOR.services_by_name["ProjectEmbeddingService"].full_name,
+        emb_pb2.DESCRIPTOR.services_by_name["UserEmbeddingService"].full_name,
+        emb_pb2.DESCRIPTOR.services_by_name["ProjectEmbeddingService"].full_name,
         reflection.SERVICE_NAME,
     )
 
