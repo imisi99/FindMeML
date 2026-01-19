@@ -16,7 +16,6 @@ logging.basicConfig(
 
 # TODO:
 # Add a vector name for the user and project vector
-# Add logs to provide info on what's happening
 
 
 def serve():
