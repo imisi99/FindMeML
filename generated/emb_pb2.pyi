@@ -19,16 +19,18 @@ class UserEmbeddingRequest(_message.Message):
     def __init__(self, user_id: _Optional[str] = ..., bio: _Optional[str] = ..., skills: _Optional[_Iterable[str]] = ..., interests: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class ProjectEmbeddingRequest(_message.Message):
-    __slots__ = ("project_id", "title", "description", "skills")
+    __slots__ = ("project_id", "title", "description", "user_id", "skills")
     PROJECT_ID_FIELD_NUMBER: _ClassVar[int]
     TITLE_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
     SKILLS_FIELD_NUMBER: _ClassVar[int]
     project_id: str
     title: str
     description: str
+    user_id: str
     skills: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, project_id: _Optional[str] = ..., title: _Optional[str] = ..., description: _Optional[str] = ..., skills: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, project_id: _Optional[str] = ..., title: _Optional[str] = ..., description: _Optional[str] = ..., user_id: _Optional[str] = ..., skills: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class UpdateStatusRequest(_message.Message):
     __slots__ = ("id", "status")

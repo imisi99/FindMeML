@@ -11,6 +11,7 @@ class ProjectEmbeddingService(emb_pb2_grpc.ProjectEmbeddingServiceServicer):
         """Creates and stores a vector embedding for a project"""
         try:
             project_id = request.project_id
+            user_id = request.user_id
             title = request.title
             description = request.description
             skills = list(request.skills)
@@ -30,6 +31,7 @@ class ProjectEmbeddingService(emb_pb2_grpc.ProjectEmbeddingServiceServicer):
                             "description": description,
                             "skills": skills,
                             "status": status,
+                            "user_id": user_id,
                         },
                     )
                 ],
