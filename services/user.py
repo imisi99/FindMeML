@@ -24,7 +24,7 @@ class UserEmbeddingService(emb_pb2_grpc.UserEmbeddingServiceServicer):
                 points=[
                     PointStruct(
                         id=user_id,
-                        vector=vector,
+                        vector={"profile": vector},
                         payload={
                             "bio": bio,
                             "skills": skills,
@@ -74,7 +74,7 @@ class UserEmbeddingService(emb_pb2_grpc.UserEmbeddingServiceServicer):
                 points=[
                     PointStruct(
                         id=user_id,
-                        vector=vector,
+                        vector={"profile": vector},
                         payload={
                             "bio": bio,
                             "skills": skills,

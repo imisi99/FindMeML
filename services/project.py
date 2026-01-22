@@ -25,7 +25,7 @@ class ProjectEmbeddingService(emb_pb2_grpc.ProjectEmbeddingServiceServicer):
                 points=[
                     PointStruct(
                         id=project_id,
-                        vector=vector,
+                        vector={"description": vector},
                         payload={
                             "title": title,
                             "description": description,
@@ -79,7 +79,7 @@ class ProjectEmbeddingService(emb_pb2_grpc.ProjectEmbeddingServiceServicer):
                 points=[
                     PointStruct(
                         id=project_id,
-                        vector=vector,
+                        vector={"description": vector},
                         payload={
                             "title": title,
                             "description": description,
